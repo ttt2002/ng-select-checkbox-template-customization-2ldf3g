@@ -1,0 +1,42 @@
+<form>
+  <div class="form-group">
+    <label for="state">City</label>
+    <ng-select
+      *ngIf="isCitiesControlVisible && cities"
+      [items]="cities"
+      [clearSearchOnAdd]="true"
+      [closeOnSelect]="false"
+      labelForId="state"
+      [multiple]="true"
+      placeholder="Select cities"
+      formControlName="selectedCitiesIds"
+      [bindLabel]="'text'"
+    >
+      <ng-template
+        ng-option-tmp
+        let-item="item"
+        let-item$="item$"
+        let-index="index"
+      >
+        <div class="row">
+          <input
+            id="item-{{ index }}"
+            type="checkbox"
+            [ngModel]="item$.selected"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          {{ item['text'] }}
+        </div>
+      </ng-template>
+      <ng-template ng-multi-label-tmp let-items="items">
+        <div class="ng-value" *ngFor="let item of items | slice: 0:2">
+          {{ item['text'] }}
+        </div>
+        <div class="ng-value" *ngIf="items.length > 2">
+          <span class="ng-value-label">{{ items.length - 2 }} more...</span>
+        </div>
+      </ng-template>
+    </ng-select>
+    <br />
+  </div>
+</form>
